@@ -12,7 +12,7 @@ def find_idxno(href):
 
 while True:
 
-	url = 'http://www.dailysecu.com/?mod=news&act=articleList&view_type=S&sc_code='
+	url = 'http://www.dailysecu.com/?mod=news&act=articleList&view_type=S&sc_code=1435901200'
 
 	fp = urlopen(url)
 	buf = fp.read()
