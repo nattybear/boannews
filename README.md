@@ -1,1 +1,1 @@
-![Alt text](/algo.png)
+![Alt text](algo.png)
