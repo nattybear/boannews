@@ -1,2 +1,1 @@
-## hello
-world
+![Alt text](/algo.png)
