@@ -11,6 +11,16 @@ def news_list():
 	output = template('make_table', rows=result)
 	return output
 
+@route('/news/simple')
+def news_list_simple():
+	con = connect('news.db')
+	c = con.cursor()
+	c.execute(open('simple_query.conf', 'rb').read())
+	result = c.fetchall()
+	c.close()
+	output = template('simple_make_table', rows=result)
+	return output
+
 debug(True)
 
 run(host='0.0.0.0', reloader=True)
