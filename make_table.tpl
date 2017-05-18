@@ -22,7 +22,9 @@ a:visited {
 
 %for row in rows:
 	<tr>
-		<td><a href="{{row[1]}}">{{row[0]}}</a></td>
+		<td>{{row[3][5:16]}}</td>
+		<td>{{row[0]}}</td>
+		<td><a href="{{row[2]}}">{{row[1]}}</a></td>
 	</tr>
 %end
 </table>
