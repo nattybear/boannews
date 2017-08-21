@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 from urllib import urlopen
 from bs4 import BeautifulSoup
 from re import compile
@@ -9,44 +11,40 @@ def find_id(href):
 	m = p.search(href)
 	return m.group(1)
 
-while True:
+url = 'http://www.etnews.com/news/section.html?id1=04'
 
-	url = 'http://www.etnews.com/news/section.html?id1=04'
+fp = urlopen(url)
+buf = fp.read()
+fp.close()
 
-	fp = urlopen(url)
-	buf = fp.read()
-	fp.close()
+soup = BeautifulSoup(buf, 'html.parser')
 
-	soup = BeautifulSoup(buf, 'html.parser')
+clearfixs = soup.find_all('dl')
 
-	clearfixs = soup.find_all('dl')
+con = connect('news.db')
+c = con.cursor()
 
-	con = connect('news.db')
-	c = con.cursor()
+for i in clearfixs:
+	
+	try:
 
-	for i in clearfixs:
-		
-		try:
+		if 'clearfix' in i['class'][0]:
 
-			if 'clearfix' in i['class'][0]:
+			headline = i.dt.string
+			url = i.dt.a['href']
+			id = find_id(url)			
+			reporter = i.find_all('span')[0].string
+			time = i.find_all('span')[1].string
 
-				headline = i.dt.string
-				url = i.dt.a['href']
-				id = find_id(url)			
-				reporter = i.find_all('span')[0].string
-				time = i.find_all('span')[1].string
+			t = (id, headline, reporter, time, url)
 
-				t = (id, headline, reporter, time, url)
+			c.execute("INSERT INTO etnews VALUES(?,?,?,?,?)", t) 
 
-				c.execute("INSERT INTO etnews VALUES(?,?,?,?,?)", t) 
+	except KeyError, e:
+		pass
 
-		except KeyError, e:
-			pass
+	except IntegrityError, e:
+		pass
 
-		except IntegrityError, e:
-			pass
-
-	con.commit()
-	con.close()
-
-	sleep(60 * 30)
+con.commit()
+con.close()
