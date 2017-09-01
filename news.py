@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-from bottle import run, route, template, debug, redirect
+from bottle import run, route, template, debug, redirect, request
 from sqlite3 import connect
 
 @route('/news')
@@ -25,7 +25,13 @@ def news_list_simple():
 
 @route('/')
 def home():
-	redirect('/news')
+	ua = request.headers.get('User-Agent')
+	if 'Android' in ua:
+		redirect('/news/simple')
+	elif 'iPhone' in ua:
+		redirect('/news/simple')
+	else:
+		redirect('/news')
 
 #debug(True)
 
