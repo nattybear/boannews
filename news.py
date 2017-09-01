@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-from bottle import run, route, template, debug
+from bottle import run, route, template, debug, redirect
 from sqlite3 import connect
 
 @route('/news')
@@ -23,6 +23,10 @@ def news_list_simple():
 	output = template('simple_make_table', rows=result)
 	return output
 
-debug(True)
+@route('/')
+def home():
+	redirect('/news')
 
-run(host='0.0.0.0', reloader=True)
+#debug(True)
+
+run(host='0.0.0.0', port=80, reloader=True)
