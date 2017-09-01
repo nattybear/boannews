@@ -1,9 +1,20 @@
 <!DOCTYPE html>
 <html>
+
+<head>
+
 <title>Security News Monitoring System</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="refresh" content="30">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-6112909469927816",
+    enable_page_level_ads: true
+  });
+</script>
 
 <style>
 a:link {
@@ -14,6 +25,8 @@ a:visited {
 	color: gray;
 }
 </style>
+
+</head>
 
 <body>
 
