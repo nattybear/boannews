@@ -1,6 +1,6 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 
-from urllib import urlopen
+from urllib.request import urlopen
 from bs4 import BeautifulSoup
 from sqlite3 import connect, IntegrityError
 from re import compile
@@ -11,11 +11,11 @@ def href2idx(href):
 	m = p.search(href)
 	return int(m.group(1))
 
-
 url = 'http://boannews.com/media/t_list.asp?kind=0'
 
 fp = urlopen(url)
 buf = fp.read()
+buf = buf.decode('cp949')
 fp.close()
 
 soup = BeautifulSoup(buf, 'html.parser')
@@ -44,10 +44,10 @@ for i in lists:
 
 			c.execute("INSERT INTO boannews VALUES(?,?,?,?,?)", t)
 
-	except KeyError, e:
+	except KeyError as e:
 		pass
 
-	except IntegrityError, e:
+	except IntegrityError as e:
 		pass
 
 con.commit()
