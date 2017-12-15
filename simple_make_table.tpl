@@ -27,5 +27,6 @@ a:visited {
 %end
 </table>
 
+</div>
 </body>
 </html>
