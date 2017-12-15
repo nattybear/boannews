@@ -35,4 +35,5 @@ def home():
 
 #debug(True)
 
-run(host='0.0.0.0', port=80, reloader=True)
+#run(host='0.0.0.0', port=80, reloader=True)
+run(server='paste', host='0.0.0.0', port=80, reloader=True)
