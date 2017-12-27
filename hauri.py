@@ -25,7 +25,7 @@ rows = []
 for t in tags:
 	div = t.find_all('div')
 	id = div[0].string
-	link = div[1].a['href']
+	link = url[:33] + div[1].a['href']
 	title = div[2].strong.string
 	enroll = div[3].string
 	time = datetime.now().strftime('%Y.%m.%d %H:%M:%S')
