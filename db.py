@@ -13,7 +13,7 @@ def insert(rows, table):
 		try:
 			cur.execute(sql, row)
 		except IntegrityError as e:
-			print(e, row)
+			pass
 
 	con.commit()
 	con.close()
