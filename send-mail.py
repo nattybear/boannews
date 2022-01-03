@@ -27,7 +27,7 @@ for item in items:
   msg['From'] = email.utils.formataddr(sender)
   msg['To'] = email.utils.formataddr(receiver)
   server.send_message(msg)
-  sql = 'UPDATE boannews SET sent = TRUE WHERE url = ?'
+  sql = 'UPDATE boannews SET sent = 1 WHERE url = ?'
   cur.execute(sql, (item.url,))
   con.commit()
 
