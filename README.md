@@ -5,3 +5,4 @@
 ## 수집 뉴스 목록
 
 * [보안뉴스 긴급 경보 RSS](http://www.boannews.com/media/news_rss.xml?skind=5)
+* [KISA 인터넷 보호나라 보안공지](https://www.boho.or.kr/data/secNoticeList.do)
