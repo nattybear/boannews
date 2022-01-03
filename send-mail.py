@@ -19,7 +19,7 @@ server = smtplib.SMTP_SSL(config['server']['host'])
 server.login(config['server']['user'], config['server']['password'])
 
 for item in items:
-  content = '<a href="%s">%s</a>' % (item.url, item.title)
+  content = '<a href="%s">원본 링크</a>' % (item.url, item.title)
   msg = email.mime.text.MIMEText(content, 'html')
   msg['Subject'] = item.title
   sender = config['sender']['name'], config['sender']['address']
