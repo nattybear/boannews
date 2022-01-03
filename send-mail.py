@@ -10,7 +10,7 @@ config.read('.boannews.ini')
 
 con = sqlite3.connect('boannews.db')
 cur = con.cursor()
-sql = 'SELECT title, url FROM boannews WHERE sent = FALSE'
+sql = 'SELECT title, url FROM boannews WHERE sent = 0'
 rows = list(cur.execute(sql))
 Item = collections.namedtuple('Item', 'title, url')
 items = map(Item._make, rows)
