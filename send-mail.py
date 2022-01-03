@@ -11,7 +11,7 @@ config.read('.boannews.ini')
 con = sqlite3.connect('boannews.db')
 cur = con.cursor()
 sql = 'SELECT title, url FROM boannews WHERE sent = FALSE'
-rows = cur.execute(sql)
+rows = list(cur.execute(sql))
 Item = collections.namedtuple('Item', 'title, url')
 items = map(Item._make, rows)
 
@@ -19,7 +19,7 @@ server = smtplib.SMTP_SSL(config['server']['host'])
 server.login(config['server']['user'], config['server']['password'])
 
 for item in items:
-  content = '<a href="%s">원본 링크</a>' % (item.url, item.title)
+  content = '<a href="%s">원본 링크</a>' % item.url
   msg = email.mime.text.MIMEText(content, 'html')
   msg['Subject'] = item.title
   sender = config['sender']['name'], config['sender']['address']
