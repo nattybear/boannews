@@ -1,54 +1,25 @@
-#!/usr/bin/python3
+import sqlite3
+import urllib.request
+import xml.etree.ElementTree as ET
 
-from urllib.request import urlopen
-from bs4 import BeautifulSoup
-from sqlite3 import connect, IntegrityError
-from re import compile
-from time import sleep
+url = 'http://www.boannews.com/media/news_rss.xml?skind=5'
+with urllib.request.urlopen(url) as f:
+  s = f.read().decode('euc-kr')
+root = ET.fromstring(s)
+channel = root[0]
+items = filter(lambda x: x.tag == 'item', channel)
+con = sqlite3.connect('boannews.db')
+cur = con.cursor()
+sql = 'INSERT INTO boannews VALUES (?, ?, FALSE)'
 
-def href2idx(href):
-	p = compile('idx=(\d+)')	
-	m = p.search(href)
-	return int(m.group(1))
+for item in items:
+  title = item[0].text.strip()
+  url = item[1].text
+  t = url, title
+  try:
+    cur.execute(sql, t)
+    con.commit()
+  except sqlite3.IntegrityError:
+    pass
 
-url = 'http://boannews.com/media/t_list.asp?kind=0'
-
-fp = urlopen(url)
-buf = fp.read()
-buf = buf.decode('cp949')
-fp.close()
-
-soup = BeautifulSoup(buf, 'html.parser')
-
-lists = soup.find_all('div')
-
-con = connect('news.db')
-c = con.cursor()
-
-for i in lists:
-
-	try:
-
-		if i['class'][0] == 'news_list':
-			spans = i.find_all('span')
-
-			href = i.a['href']
-			
-			id = href2idx(href)
-			headline = spans[0].string
-			reporter = spans[1].string.split(' | ')[0].split(' ')[0]
-			time = spans[1].string.split(' | ')[1]
-			url = 'http://boannews.com' + i.a['href']
-
-			t = (id, headline, reporter, time, url)
-
-			c.execute("INSERT INTO boannews VALUES(?,?,?,?,?)", t)
-
-	except KeyError as e:
-		pass
-
-	except IntegrityError as e:
-		pass
-
-con.commit()
 con.close()
