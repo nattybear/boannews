@@ -15,7 +15,7 @@ sql = 'INSERT INTO boannews VALUES (?, ?, FALSE)'
 for item in items:
   title = item[0].text.strip()
   url = item[1].text
-  t = title, url
+  t = url, title
   try:
     cur.execute(sql, t)
     con.commit()
