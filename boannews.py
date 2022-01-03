@@ -10,7 +10,7 @@ channel = root[0]
 items = filter(lambda x: x.tag == 'item', channel)
 con = sqlite3.connect('boannews.db')
 cur = con.cursor()
-sql = 'INSERT INTO boannews VALUES (?, ?, DATETIME(), FALSE)'
+sql = 'INSERT INTO boannews VALUES (?, ?, FALSE)'
 
 for item in items:
   title = item[0].text.strip()
