@@ -14,7 +14,7 @@ rows = body.find_all('tr')
 
 con = sqlite3.connect('boannews.db')
 cur = con.cursor()
-sql = 'INSERT INTO boannews VALUES (?, ?, FALSE)'
+sql = 'INSERT INTO boannews VALUES (?, ?, 0)'
 
 for row in rows:
   a = row.find('a')
